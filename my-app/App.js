@@ -1,23 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { View, StatusBar } from "react-native";
-import SplashScreen from "./src/screens/SplashScreen";
-import HomeScreen from "./src/screens/HomeScreen"; // corregido nombre
+import React, { useEffect, useState } from "react";
 
-export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
+function ListaNombres() {
+  const [nombres, setNombres] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2500); // 2.5 segundos
-
-    return () => clearTimeout(timer);
+    fetch("http://127.0.0.1:8000/nombres")
+      .then((res) => res.json())
+      .then((data) => {
+        setNombres(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setNombres([]);
+        setLoading(false);
+      });
   }, []);
 
+  if (loading) return <p>Cargando datos...</p>;
+  if (nombres.length === 0) return <p>Lista vacía</p>;
+
   return (
-    <View style={{ flex: 1 }}>
-      <StatusBar hidden />
-      {isLoading ? <SplashScreen /> : <HomeScreen />}
-    </View>
+    <ul>
+      {nombres.map((persona, index) => (
+        <li key={index}>
+          {persona.Nombre} {persona.Apellido}
+        </li>
+      ))}
+    </ul>
   );
 }
+
+export default ListaNombres;

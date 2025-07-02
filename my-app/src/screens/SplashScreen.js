@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 200,
+    width: 900,
     height: 200,
   },
   title: {
-    fontSize: 24,
+    fontSize: 100,
     fontWeight: 'bold',
     color: '#ffffff',
     marginTop: 20,
