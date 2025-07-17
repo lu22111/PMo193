@@ -1,17 +1,17 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-// Importar las pantallas
-import Home from './screens/home';
-import Profile from './screens/profile';
-import Settings from './screens/settings';
+// Importa tus screens existentes
+import HomeScreen from './screens/home';
+import SettingsScreen from './screens/settings';
+// Importa el nuevo ProfileStack
+import ProfileStack from './ProfileStack';
 
-// Crear el objeto Tab
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -21,65 +21,29 @@ export default function App() {
 
             if (route.name === 'Home') {
               iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'Profile') {
+            } else if (route.name === 'ProfileStack') {
               iconName = focused ? 'person' : 'person-outline';
             } else if (route.name === 'Settings') {
               iconName = focused ? 'settings' : 'settings-outline';
             }
 
-            return <Ionicons name={iconName} size={size} color={color} />;
+            return <Icon name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
+          tabBarActiveTintColor: '#007AFF',
           tabBarInactiveTintColor: 'gray',
-          tabBarStyle: {
-            paddingBottom: 5,
-            height: 60,
-          },
+          headerShown: false,
         })}
       >
+        <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen 
-          name="Home" 
-          component={Home} 
-          options={{
-            title: 'Inicio',
-            headerStyle: {
-              backgroundColor: '#f0f0f0',
-            },
-            headerTintColor: '#000',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
+          name="ProfileStack" 
+          component={ProfileStack}
+          options={{ title: 'Profile' }}
         />
-        <Tab.Screen 
-          name="Profile" 
-          component={Profile} 
-          options={{
-            title: 'Perfil',
-            headerStyle: {
-              backgroundColor: '#e8f4f8',
-            },
-            headerTintColor: '#000',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />
-        <Tab.Screen 
-          name="Settings" 
-          component={Settings} 
-          options={{
-            title: 'Configuración',
-            headerStyle: {
-              backgroundColor: '#f8f0e8',
-            },
-            headerTintColor: '#000',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default App;

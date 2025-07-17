@@ -1,35 +1,55 @@
-profile.js
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { View, Text, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-export default function Profile() {
+const ProfileScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.iconRow}>
-        <Ionicons name="person-outline" size={28} color="green" />
-        <Text style={styles.title}>Perfil de usuario</Text>
-      </View>
+      <Text style={styles.title}>Perfil de Usuario</Text>
+      <Text style={styles.subtitle}>Información del usuario</Text>
+      
+      {/* BOTÓN NUEVO - Agrega esto */}
+      <TouchableOpacity 
+        style={styles.button}
+        onPress={() => navigation.navigate('Detalle')}
+      >
+        <Text style={styles.buttonText}>Detalles de usuario</Text>
+      </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#f5f5f5',
     padding: 20,
   },
-  iconRow: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginTop: 10,
-    color: 'green',
+    marginBottom: 10,
+    color: '#333',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 30,
+    textAlign: 'center',
+  },
+  // NUEVOS ESTILOS - Agrega estos
+  button: {
+    backgroundColor: '#28a745',
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
+
+export default ProfileScreen;
